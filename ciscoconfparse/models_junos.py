@@ -563,7 +563,7 @@ class JunosIntfGlobal(BaseCfgLine):
     @classmethod
     def is_object_for(cls, line="", re=re):
         if re.search(
-            "^(no\s+cdp\s+run)|(logging\s+event\s+link-status\s+global)|(spanning-tree\sportfast\sdefault)|(spanning-tree\sportfast\sbpduguard\sdefault)",
+            r"^(no\s+cdp\s+run)|(logging\s+event\s+link-status\s+global)|(spanning-tree\sportfast\sdefault)|(spanning-tree\sportfast\sbpduguard\sdefault)",
             line,
         ):
             return True
@@ -571,31 +571,31 @@ class JunosIntfGlobal(BaseCfgLine):
 
     @property
     def has_cdp_disabled(self):
-        if self.re_search("^no\s+cdp\s+run\s*"):
+        if self.re_search(r"^no\s+cdp\s+run\s*"):
             return True
         return False
 
     @property
     def has_intf_logging_def(self):
-        if self.re_search("^logging\s+event\s+link-status\s+global"):
+        if self.re_search(r"^logging\s+event\s+link-status\s+global"):
             return True
         return False
 
     @property
     def has_stp_portfast_def(self):
-        if self.re_search("^spanning-tree\sportfast\sdefault"):
+        if self.re_search(r"^spanning-tree\sportfast\sdefault"):
             return True
         return False
 
     @property
     def has_stp_portfast_bpduguard_def(self):
-        if self.re_search("^spanning-tree\sportfast\sbpduguard\sdefault"):
+        if self.re_search(r"^spanning-tree\sportfast\sbpduguard\sdefault"):
             return True
         return False
 
     @property
     def has_stp_mode_rapidpvst(self):
-        if self.re_search("^spanning-tree\smode\srapid-pvst"):
+        if self.re_search(r"^spanning-tree\smode\srapid-pvst"):
             return True
         return False
 
@@ -705,7 +705,7 @@ class JunosRouteLine(BaseJunosRouteLine):
 
     @classmethod
     def is_object_for(cls, line="", re=re):
-        if re.search("^(ip|ipv6)\s+route\s+\S", line):
+        if re.search(r"^(ip|ipv6)\s+route\s+\S", line):
             return True
         return False
 

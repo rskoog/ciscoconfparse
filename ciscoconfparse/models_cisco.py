@@ -1383,22 +1383,22 @@ class BaseIOSIntfLine(IOSCfgLine):
 
             ## For every child object, check whether the vlan list is modified
             abs_str = obj.re_match_typed(
-                "^\s+switchport\s+trunk\s+allowed\s+vlan\s(all|none|\d.*?)$",
+                r"^\s+switchport\s+trunk\s+allowed\s+vlan\s(all|none|\d.*?)$",
                 default="_nomatch_",
                 result_type=str,
             ).lower()
             add_str = obj.re_match_typed(
-                "^\s+switchport\s+trunk\s+allowed\s+vlan\s+add\s+(\d.*?)$",
+                r"^\s+switchport\s+trunk\s+allowed\s+vlan\s+add\s+(\d.*?)$",
                 default="_nomatch_",
                 result_type=str,
             ).lower()
             exc_str = obj.re_match_typed(
-                "^\s+switchport\s+trunk\s+allowed\s+vlan\s+except\s+(\d.*?)$",
+                r"^\s+switchport\s+trunk\s+allowed\s+vlan\s+except\s+(\d.*?)$",
                 default="_nomatch_",
                 result_type=str,
             ).lower()
             rem_str = obj.re_match_typed(
-                "^\s+switchport\s+trunk\s+allowed\s+vlan\s+remove\s+(\d.*?)$",
+                r"^\s+switchport\s+trunk\s+allowed\s+vlan\s+remove\s+(\d.*?)$",
                 default="_nomatch_",
                 result_type=str,
             ).lower()
@@ -1827,7 +1827,7 @@ class IOSAccessLine(BaseCfgLine):
     def name(self):
         retval = self.re_match_typed(r"^line\s+(\S+)", result_type=str, default="")
         # special case for IOS async lines: i.e. "line 33 48"
-        if re.search("\d+", retval):
+        if re.search(r"\d+", retval):
             return ""
         return retval
 
@@ -2247,7 +2247,7 @@ class IOSAaaLoginAuthenticationLine(BaseCfgLine):
         )
         self.group = self.re_match_typed(regex, group=2, result_type=str, default="")
         methods_str = self.re_match_typed(regex, group=3, result_type=str, default="")
-        self.methods = methods_str.strip().split("\s")
+        self.methods = methods_str.strip().split(r"\s")
 
     @classmethod
     def is_object_for(cls, line="", re=re):
@@ -2267,7 +2267,7 @@ class IOSAaaEnableAuthenticationLine(BaseCfgLine):
         )
         self.group = self.re_match_typed(regex, group=2, result_type=str, default="")
         methods_str = self.re_match_typed(regex, group=3, result_type=str, default="")
-        self.methods = methods_str.strip().split("\s")
+        self.methods = methods_str.strip().split(r"\s")
 
     @classmethod
     def is_object_for(cls, line="", re=re):
@@ -2288,7 +2288,7 @@ class IOSAaaCommandsAuthorizationLine(BaseCfgLine):
         )
         self.group = self.re_match_typed(regex, group=3, result_type=str, default="")
         methods_str = self.re_match_typed(regex, group=4, result_type=str, default="")
-        self.methods = methods_str.strip().split("\s")
+        self.methods = methods_str.strip().split(r"\s")
 
     @classmethod
     def is_object_for(cls, line="", re=re):
